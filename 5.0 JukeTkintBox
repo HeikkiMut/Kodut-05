@@ -1,0 +1,148 @@
+print("Tere, maailm!")
+
+# Impordime paketi Tkinter ja määratleme akna, anname aknale pealkirja, mis kuvatakse rakenduse avamisel
+import tkinter as tk
+from tkinter import *
+from tkinter.ttk import *
+COL_ORS = []
+# loome akna ja selle seaded
+aken = tk.Tk()
+aken.title("JukeBox")
+aken.geometry("440x460")
+aken.resizable(0,0)
+
+
+#funktsioonid
+def selekteeritud():
+    aktiivne = loend.curselection()
+    aktiivne = int(aktiivne[0])
+    print(fail[aktiivne],'.txt',sep='')
+    pl = open(fail[aktiivne]+".txt", 'a')
+    silt2 = entry.get()
+    pl.write("\n")
+    pl.write(silt2) 
+
+#anname käsunuppudele funktsiooni
+def openInstruktion1():
+    from os import startfile
+    startfile('80ndad.txt')
+
+def openInstruktion2():
+    from os import startfile
+    startfile('jukebox.txt')
+
+def openInstruktion3():
+    from os import startfile
+    startfile('eesti_muusika.txt')
+
+def openInstruktion4():
+    from os import startfile
+    startfile('edm.txt')
+
+def openInstruktion5():
+    from os import startfile
+    startfile('sega.txt')
+
+def openInstruktion6():
+    from os import startfile
+    startfile('juubel.txt')
+
+def openInstruktion7():
+    from os import startfile
+    startfile('pulmalaulud.txt')
+    
+def openInstruktion8():
+    from os import startfile
+    startfile('joul.txt')
+
+def naita_valikut():
+    print(var.get())    
+ 
+ 
+# sisestame 1. tühja rea 
+l0 = tk.Label(aken, text='\n')
+l0.grid(column=0, row=0)
+
+# sisestame 2. tühja rea 
+l0 = tk.Label(aken, text='\n')
+l0.grid(column=0, row=4)
+
+# sisestame 3. tühja rea 
+l0 = tk.Label(aken, text='\n')
+l0.grid(column=0, row=14)
+
+#anname vidinatele nimetused
+#silt1
+silt1 = Label(aken, text="Vali playlisti nimi, mida soovid muuta (vali ja kliki):")
+silt1.grid(row=0,column=0)
+
+#loendikast (Listbox)
+loend = Listbox(aken, height=4)
+#määrame avatavate failide loetelu
+fail = ['80ndad', 'jukebox', 'eesti_muusika', 'edm', 'sega']
+for i in fail:
+    loend.insert(END, i)
+loend.grid(row=1,column=1)
+#kerimisriba selle juurde
+kerimine = Scrollbar(aken, orient=VERTICAL)
+kerimine.grid(row=1,column=2)
+kerimine.configure(command=loend.yview)
+loend.configure(yscrollcommand=kerimine.set)
+
+#silt2
+silt2 = Label(aken, text="Liste saad näha siit: ")
+silt2.grid(row=6,column=0, sticky="w")
+
+#silt3
+silt3 = Label(aken, text="Lisa playlisti uus lugu: ")
+silt3.grid(row=13,column=0, sticky="e")
+#sisestusväli1
+entry = Entry(aken)
+entry.grid(row=13,column=1)
+
+#silt4
+silt4 = Label(aken, text="Soovitud teema kiirvalik: ")
+silt4.grid(row=29,column=0, sticky="e")
+
+#nupud
+# 1.nupp
+instruktionBtn1 = tk.Button(aken, text='80ndad', width=20, bg='light slate blue', command=openInstruktion1)
+instruktionBtn1.grid(row=7, column=0)
+
+# 2.nupp
+instruktionBtn2 = tk.Button(aken, text='jukebox', width=20, bg='light slate blue', command=openInstruktion2)
+instruktionBtn2.grid(row=8, column=0)
+
+# 3.nupp
+instruktionBtn3 = tk.Button(aken, text='eesti', width=20, bg='light slate blue', command=openInstruktion3)
+instruktionBtn3.grid(row=9, column=0)
+
+# 4.nupp
+instruktionBtn4 = tk.Button(aken, text='edm', width=20, bg='light slate blue',command=openInstruktion4)
+instruktionBtn4.grid(row=10, column=0)
+
+# 5.nupp
+instruktionBtn5 = tk.Button(aken, text='sega', width=20, bg='light slate blue', command=openInstruktion5)
+instruktionBtn5.grid(row=11, column=0)
+
+# lisamisnupp
+nupp1 = tk.Button(aken, text="Ok", width=10, bg='PaleVioletRed3', command=selekteeritud)
+nupp1.grid(row=14, column=1)
+
+# vahejooned
+separator1 = ttk.Separator(aken, orient='horizontal')
+separator1.grid(row=5, column=0, columnspan=3, sticky="ew", padx=20)
+
+separator2 = ttk.Separator(aken, orient='horizontal')
+separator2.grid(row=28, column=0, columnspan=3, sticky="ew", padx=20)
+
+# Radiobuttoni valikukast
+var = IntVar()
+valikukast = Radiobutton(aken,text="Juubel", variable=var, value=1,command=openInstruktion6)
+valikukast.grid(row=30, column=1, sticky="w")
+valikukast = Radiobutton(aken,text="Pulm", variable=var, value=2, command=openInstruktion7)
+valikukast.grid(row=31, column=1, sticky="w")
+valikukast = Radiobutton(aken,text="Jõul", variable=var, value=3, command=openInstruktion8)
+valikukast.grid(row=32, column=1, sticky="w")
+
+aken.mainloop()
